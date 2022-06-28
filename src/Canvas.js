@@ -1,10 +1,14 @@
 import { fabric } from 'fabric'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import styled from 'styled-components'
 
 const Canvas = ({config, children = []}) => {
     const [canvas, setCanvas] = useState(null)
     const [objects, setObjects] = useState(children)
     const [settings, setConfig] = useState(config)
+
+    const ref = useRef(null)
+
     let velocity = {x: 0, y: 0, mx: 0, my: 0}
     let jumping = false
 
@@ -101,9 +105,15 @@ const Canvas = ({config, children = []}) => {
           });
     }, [])
 
-    return <>
+    return <CanvasContainer ref={ref}>
         <canvas id="canvas"/>
-    </>
+    </CanvasContainer>
 }
+
+const CanvasContainer = styled.div`
+    height: 100vh;
+    width: 100%;
+    background-color: red;
+`
 
 export default Canvas
